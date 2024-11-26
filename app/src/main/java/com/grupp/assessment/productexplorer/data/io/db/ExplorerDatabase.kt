@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
 @Database(entities = [RoomProduct::class], version = 1)
+@TypeConverters(ProductConverter::class)
 abstract class ExplorerDatabase: RoomDatabase() {
     companion object {
         fun build(context: Context): ExplorerDatabase {
@@ -16,4 +18,6 @@ abstract class ExplorerDatabase: RoomDatabase() {
             ).build()
         }
     }
+
+    abstract val productDao: ProductDao
 }

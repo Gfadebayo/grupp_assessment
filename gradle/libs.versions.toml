@@ -8,8 +8,8 @@ espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 hilt = "2.49"
-navigation = "2.7.7"
-lifecycle = "2.8.3"
+navigation = "2.8.4"
+lifecycle = "2.8.7"
 okhttp = "4.12.0"
 retrofit = "2.11.0"
 glide = "4.15.1"
@@ -17,6 +17,10 @@ chucker = "3.5.2"
 room = "2.6.1"
 
 [libraries]
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 desugar-nio = { module = "com.android.tools:desugar_jdk_libs_nio", version = "2.0.4"}
@@ -39,7 +43,11 @@ navigation-ui = { module = 'androidx.navigation:navigation-ui-ktx', version.ref 
 preference = { module = 'androidx.preference:preference-ktx', version = "1.2.1" }
 
 hilt = { module = 'com.google.dagger:hilt-android', version.ref = "hilt" }
-hilt-compiler = { module = 'com.google.dagger:hilt-android-compiler', version.ref = "hilt" }
+hilt-android-compiler = { module = 'com.google.dagger:hilt-android-compiler', version.ref = "hilt" }
+
+hilt-test = { module = "com.google.dagger:hilt-android-testing", version.ref = "hilt" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+
 hilt-work = { module = "androidx.hilt:hilt-work", version = "1.2.0" }
 hilt-compiler-work = { module = "androidx.hilt:hilt-compiler", version = "1.2.0" }
 
@@ -62,6 +70,8 @@ retrofit-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref 
 
 chucker-debug = { module = "com.github.chuckerteam.chucker:library", version.ref = "chucker"}
 chucker-release = {module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chucker"}
+
+robolectric = { module = "org.robolectric:robolectric", version = "4.14" }
 
 [bundles]
 androidx = ["core", "appcompat", "activity", "constraint_layout",

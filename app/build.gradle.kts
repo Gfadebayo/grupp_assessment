@@ -48,15 +48,24 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.nio)
 
-//    testImplementation(libs.junit)
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation(libs.robolectric)
 //    androidTestImplementation(libs.androidx.junit)
 //    androidTestImplementation(libs.androidx.espresso.core)
-//
+
     implementation(libs.bundles.androidx)
     implementation(libs.bundles.navigation)
 
@@ -74,10 +83,14 @@ dependencies {
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
 
+    testImplementation(libs.hilt.test)
+    kspTest(libs.hilt.compiler)
+
     implementation(libs.bundles.glide)
     ksp(libs.glide.compiler)
 
     implementation(libs.room.runtime)
     ksp(libs.room.compiler)
     implementation(libs.room.ktx)
+    testImplementation(libs.room.test)
 }
