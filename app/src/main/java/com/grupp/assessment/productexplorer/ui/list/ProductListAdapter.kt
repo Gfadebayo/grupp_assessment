@@ -21,7 +21,7 @@ class ProductListAdapter: ListAdapter<ListUi, ProductListAdapter.ViewHolder>(DIF
         }
     }
 
-    var onItemClick: (ListUi) -> Unit = {}
+    var onItemClick: (Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false).run {
@@ -39,6 +39,11 @@ class ProductListAdapter: ListAdapter<ListUi, ProductListAdapter.ViewHolder>(DIF
 
             textRating.text = item.rating
 
+            imageProduct.transitionName = "image_product_${item.id}"
+            textRating.transitionName = "rating_${item.id}"
+            textTitle.transitionName = "title_${item.id}"
+            textPrice.transitionName = "price_${item.id}"
+
             imageProduct.post {
                 Glide.with(imageProduct)
                     .load(item.image)
@@ -52,7 +57,7 @@ class ProductListAdapter: ListAdapter<ListUi, ProductListAdapter.ViewHolder>(DIF
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         val binding = ItemProductBinding.bind(view).apply {
             root.setOnClickListener {
-                onItemClick(currentList[bindingAdapterPosition])
+                onItemClick(bindingAdapterPosition)
             }
         }
     }

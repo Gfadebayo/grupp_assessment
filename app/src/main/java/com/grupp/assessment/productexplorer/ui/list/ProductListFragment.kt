@@ -2,14 +2,17 @@ package com.grupp.assessment.productexplorer.ui.list
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
 import com.grupp.assessment.productexplorer.R
 import com.grupp.assessment.productexplorer.core.Result
 import com.grupp.assessment.productexplorer.databinding.FragmentProductListBinding
@@ -17,6 +20,7 @@ import com.grupp.assessment.productexplorer.ui.base.dismissLoadingDialog
 import com.grupp.assessment.productexplorer.ui.base.handleError
 import com.grupp.assessment.productexplorer.ui.base.navigate
 import com.grupp.assessment.productexplorer.ui.base.showLoading
+import com.grupp.assessment.productexplorer.ui.list.mapper.ListUi
 import com.grupp.assessment.productexplorer.ui.utils.delegates.viewBinding
 import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.BoxDecoration
 import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.BoxDecoration.Companion.setBoxDecoration
@@ -38,26 +42,18 @@ class ProductListFragment: Fragment(R.layout.fragment_product_list) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        postponeEnterTransition()
         viewModel.fetchProducts()
 
         viewModel.listFlow
             .flowWithLifecycle(lifecycle, Lifecycle.State.RESUMED)
             .onEach {
-                Timber.d(it.toString())
-
-//                if(it.loadState is Result.Loading) showLoading(textRes = R.string.fetching_products)
-//                else dismissLoadingDialog()
-
                 binding.apply {
-                    when(it.loadState) {
-                        is Result.None -> {}
-                        is Result.Success -> {
-                            (recyclerView.adapter as ProductListAdapter).submitList(it.products)
-                        }
-                        is Result.Error -> handleError(it.loadState)
+                    root.isRefreshing = it.loadState is Result.Loading
 
-                        else -> {}
-                    }
+                    (recyclerView.adapter as ProductListAdapter).submitList(it.products)
+
+                    if(it.loadState is Result.Error) handleError(it.loadState)
                 }
             }
             .flowOn(Dispatchers.Main)
@@ -69,10 +65,20 @@ class ProductListFragment: Fragment(R.layout.fragment_product_list) {
             recyclerView.adapter = ProductListAdapter().apply {
                 submitList(viewModel.listFlow.value.products)
 
-                onItemClick = {
+                onItemClick = { index ->
+                    val item = currentList[index]
+                    val itemBinding = (recyclerView.findViewHolderForAdapterPosition(index) as ProductListAdapter.ViewHolder).binding
+
                     navigate(
                         id = R.id.frag_product_detail,
-                        args = bundleOf("id" to it.id),
+                        args = bundleOf("id" to item.id),
+                        sharedElements = arrayOf(
+                            itemBinding.imageProduct to "image_product",
+                            itemBinding.textPrice to "price",
+                            itemBinding.textRating to "rating",
+                            itemBinding.textTitle to "title"
+
+                        )
                     )
                 }
             }
@@ -97,6 +103,12 @@ class ProductListFragment: Fragment(R.layout.fragment_product_list) {
 
                 w
             }
+
+            (view.parent as? ViewGroup)?.doOnPreDraw {
+                startPostponedEnterTransition()
+            }
+
+            root.setOnRefreshListener { viewModel.fetchProducts() }
         }
     }
 }

@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.widget.ImageView
-import com. bumptech. glide. request. transition.Transition
+import com.bumptech.glide.request.transition.Transition
 import androidx.core.view.get
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.request.target.ImageViewTarget

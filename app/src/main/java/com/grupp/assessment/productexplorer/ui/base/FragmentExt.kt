@@ -79,8 +79,14 @@ fun Fragment.runOnUiThread(runnable: () -> Unit) {
     if(isAdded) ContextCompat.getMainExecutor(requireContext()).execute(runnable)
 }
 
-fun Fragment.navigate(@IdRes id: Int, args: Bundle = Bundle.EMPTY, popupTo: Int? = null, inclusive: Boolean = false) {
-    if(isAdded) (requireActivity() as MainActivity).navigate(id, args, popupTo, inclusive)
+fun Fragment.navigate(
+    @IdRes id: Int,
+    args: Bundle = Bundle.EMPTY,
+    popupTo: Int? = null,
+    inclusive: Boolean = false,
+    vararg sharedElements: Pair<View, String>
+) {
+    if(isAdded) (requireActivity() as MainActivity).navigate(id, args, popupTo, inclusive, *sharedElements)
 }
 
 fun Fragment.addBackCallback(isEnabled: Boolean = true, callback: OnBackPressedCallback.() -> Unit): OnBackPressedCallback {

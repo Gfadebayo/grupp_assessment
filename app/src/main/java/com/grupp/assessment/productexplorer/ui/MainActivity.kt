@@ -87,14 +87,14 @@ class MainActivity: AppCompatActivity() {
     fun dismissLoadingDialog() {
         runOnUiThread {
             binding.apply {
-                root.animate().cancel()
+                layoutLoading.animate().cancel()
 
-                if(!root.isVisible) return@runOnUiThread
+                if(!layoutLoading.isVisible) return@runOnUiThread
 
-                root.animate()
+                layoutLoading.animate()
                     .setDuration(450)
-                    .withEndAction { root.isVisible = false }
-                    .translationY(root.height * 1f)
+                    .withEndAction { layoutLoading.isVisible = false }
+                    .translationY(layoutLoading.height * 1f)
                     .alpha(0f)
                     .setInterpolator(DecelerateInterpolator())
                     .start()
@@ -158,7 +158,7 @@ class MainActivity: AppCompatActivity() {
         args: Bundle = Bundle.EMPTY,
         popupTo: Int? = null,
         inclusive: Boolean = false,
-        sharedElements: Pair<View, String>? = null
+        vararg sharedElements: Pair<View, String>
     ) {
         val navOptions = navOptions {
             if(popupTo != null) {
@@ -176,9 +176,9 @@ class MainActivity: AppCompatActivity() {
         }
 
 
-        val navExtras = sharedElements?.let { FragmentNavigatorExtras(it) }
+        val navExtras = FragmentNavigatorExtras(*sharedElements)
 
-        navController.navigate(id, args, navOptions, navigatorExtras = navExtras)
+        navController.navigate(id, args, null, navigatorExtras = navExtras)
     }
 
     override fun onSupportNavigateUp() = navController.navigateUp() || super.onSupportNavigateUp()

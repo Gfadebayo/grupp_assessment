@@ -2,7 +2,9 @@ package com.grupp.assessment.productexplorer.ui.detail
 
 import android.os.Bundle
 import android.text.SpannableStringBuilder
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -16,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.grupp.assessment.productexplorer.R
 import com.grupp.assessment.productexplorer.core.Result
 import com.grupp.assessment.productexplorer.databinding.FragmentProductDetailBinding
+import com.grupp.assessment.productexplorer.ui.base.navController
 import com.grupp.assessment.productexplorer.ui.utils.delegates.viewBinding
 import com.grupp.assessment.productexplorer.ui.utils.spacedBy
 import com.grupp.assessment.productexplorer.ui.utils.textAppearance
@@ -33,9 +36,13 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
 
     private val args by navArgs<ProductDetailFragmentArgs>()
 
+    private val transition by lazy { TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
+        postponeEnterTransition()
+        sharedElementEnterTransition = transition
+
         viewModel.fetchDetail(args.id)
         viewModel.stateFlow
             .flowWithLifecycle(lifecycle)
@@ -74,6 +81,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                     .request?.also { if(!it.isRunning) it.begin() }
             }
 
+            buttonUp.setOnClickListener { navController.popBackStack() }
+
             textTitle.text = detail.title
 
             textCategory.text = detail.category.toDetailCategory(requireContext())
@@ -86,6 +95,8 @@ class ProductDetailFragment : Fragment(R.layout.fragment_product_detail) {
                 .textAppearance(requireContext(), textRes = R.string.total_price, res = R.style.TextAppearance_Detail_TotalPrice)
                 .spacedBy(4)
                 .append(detail.price)
+
+            startPostponedEnterTransition()
         }
     }
 }
