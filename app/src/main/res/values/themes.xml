@@ -1,4 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.ProductExplorer.Splash" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:colorBackground">@color/ic_launcher_background</item>
+        <!--        Will be no-op on v31 and above as the system splash screen is used instead-->
+        <item name="android:windowBackground">@drawable/layer_splash</item>
+
+        <item name="android:navigationBarColor">?android:attr/colorBackground</item>
+        <item name="android:statusBarColor" >?android:attr/colorBackground</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="Theme.ProductExplorer" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:colorBackground">#FFF2F2F7</item>

@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProductExplorer"
+        android:theme="@style/Theme.ProductExplorer.Splash"
         tools:targetApi="31" >
 
         <activity
@@ -28,7 +28,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.MainActivity" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:theme="@style/Theme.ProductExplorer"
+            />
     </application>
 
 </manifest>
