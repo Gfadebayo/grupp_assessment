@@ -50,7 +50,7 @@ class ProductRepositoryUnitTest {
     @Test
     fun test() {
         runTest {
-            val result = repo.fetchProduct(1)
+            val result = repo.fetchProduct()
 
             assert(result is Result.Success)
 
