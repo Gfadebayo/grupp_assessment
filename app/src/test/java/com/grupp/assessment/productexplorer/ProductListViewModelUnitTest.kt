@@ -26,6 +26,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import timber.log.Timber
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.minutes
 
 @Config(application = HiltTestApplication::class)
 @RunWith(RobolectricTestRunner::class)
@@ -53,7 +54,7 @@ class ProductListViewModelUnitTest {
 
     @Test
     fun testFetchProducts() {
-        runTest {
+        runTest(timeout = 1.minutes) {
             viewModel.fetchProducts()
 
             val productState = viewModel.listFlow.first {

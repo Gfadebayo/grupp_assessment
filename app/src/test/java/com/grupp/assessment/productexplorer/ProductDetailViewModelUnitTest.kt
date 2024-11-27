@@ -21,6 +21,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.minutes
 
 @Config(application = HiltTestApplication::class)
 @RunWith(RobolectricTestRunner::class)
@@ -48,7 +49,7 @@ class ProductDetailViewModelUnitTest {
 
     @Test
     fun testFetchingDetail() {
-        runTest {
+        runTest(timeout = 1.minutes) {
             //Put data into db
             repo.fetchProduct()
 
