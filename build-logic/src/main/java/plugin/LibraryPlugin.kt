@@ -17,7 +17,7 @@ class LibraryPlugin: Plugin<Project> {
             pluginManager.apply("com.android.library")
 
             extensions.getByType<LibraryExtension>().apply {
-                namespace = "com.grupp.assessment.productexplorer"
+                namespace = "com.grupp.assessment.productexplorer.${name}"
                 compileSdk = 35
 
                 defaultConfig {
