@@ -56,10 +56,8 @@ class RemoteDataSource(
         initialValue = true
     )
 
-    suspend fun getProducts(): Result<List<com.grupp.assessment.productexplorer.domain.Product>> {
-        return send {
-            service.productList()
-        }
+    suspend fun getProducts(): Result<List<Product>> {
+        return send { service.productList() }
     }
 
     private suspend fun<T> send(command: suspend () -> Result<T>): Result<T> {

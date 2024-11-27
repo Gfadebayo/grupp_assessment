@@ -22,14 +22,16 @@ class ProductRepositoryUnitTest {
 
     private lateinit var repo: ProductRepository
 
-    @BeforeTest
-    fun init() {
-        Timber.plant(TestTree())
-
-        val db = Room.inMemoryDatabaseBuilder(
+    private val db by lazy {
+        Room.inMemoryDatabaseBuilder(
             context = RuntimeEnvironment.getApplication(),
             klass = ExplorerDatabase::class.java
         ).build()
+    }
+
+    @BeforeTest
+    fun init() {
+        Timber.plant(TestTree())
 
         val localSource = LocalDataSource(db)
 
@@ -42,14 +44,12 @@ class ProductRepositoryUnitTest {
 
     @AfterTest
     fun close() {
-
+        db.close()
     }
 
     @Test
     fun test() {
         runTest {
-            Timber.d("Ready")
-
             val result = repo.fetchProduct(1)
 
             assert(result is Result.Success)

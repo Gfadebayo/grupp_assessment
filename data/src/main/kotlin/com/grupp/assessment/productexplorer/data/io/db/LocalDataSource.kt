@@ -16,7 +16,7 @@ class LocalDataSource(
         }
     }
 
-    suspend fun fetchById(id: String): com.grupp.assessment.productexplorer.domain.Product {
+    suspend fun fetchById(id: String): Product {
         return withContext(Dispatchers.IO) {
             database.productDao.byId(id).toProduct()
         }
