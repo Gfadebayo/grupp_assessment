@@ -1,6 +1,7 @@
 package com.grupp.assessment.productexplorer.ui.list
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -42,7 +43,6 @@ class ProductListFragment: Fragment(R.layout.fragment_product_list) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        postponeEnterTransition()
         viewModel.fetchProducts()
 
         viewModel.listFlow
@@ -58,6 +58,15 @@ class ProductListFragment: Fragment(R.layout.fragment_product_list) {
             }
             .flowOn(Dispatchers.Main)
             .launchIn(lifecycleScope)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        postponeEnterTransition()
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

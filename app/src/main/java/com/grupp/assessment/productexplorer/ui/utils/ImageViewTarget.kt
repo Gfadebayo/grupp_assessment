@@ -29,7 +29,7 @@ class ImageViewTarget(
     }
 
      override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
-        imageView.setImageDrawable(resource)
+         super.onResourceReady(resource, transition)
     }
 
      override fun onLoadStarted(placeholder: Drawable?) {
