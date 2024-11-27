@@ -10,6 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
+        android:background="@color/white"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Product"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

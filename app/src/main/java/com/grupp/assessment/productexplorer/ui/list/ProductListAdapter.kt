@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.grupp.assessment.productexplorer.R
 import com.grupp.assessment.productexplorer.databinding.ItemProductBinding
 import com.grupp.assessment.productexplorer.ui.list.mapper.ListUi
-import timber.log.Timber
+import com.grupp.assessment.productexplorer.ui.utils.ImageViewTarget
 
 class ProductListAdapter: ListAdapter<ListUi, ProductListAdapter.ViewHolder>(DIFF_UTIL) {
     companion object {
@@ -42,8 +42,8 @@ class ProductListAdapter: ListAdapter<ListUi, ProductListAdapter.ViewHolder>(DIF
             imageProduct.post {
                 Glide.with(imageProduct)
                     .load(item.image)
-                    .override(imageProduct.width.also { Timber.d("Width is $it") }, imageProduct.height.also { Timber.d("Height is $it") })
-                    .into(imageProduct)
+                    .override(imageProduct.width, imageProduct.height)
+                    .into(ImageViewTarget(imageProduct))
                     .request?.also { if(!it.isRunning) it.begin() }
             }
         }

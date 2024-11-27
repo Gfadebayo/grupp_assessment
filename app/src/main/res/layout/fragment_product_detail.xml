@@ -7,6 +7,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,7 +15,8 @@
             android:id="@+id/image_product"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,11 +46,12 @@
 
         <TextView
             android:id="@+id/text_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:textAppearance="@style/TextAppearance.Detail.Title"
             app:layout_constraintStart_toStartOf="@id/text_category"
+            app:layout_constraintEnd_toEndOf="@id/text_rating"
             app:layout_constraintTop_toBottomOf="@id/text_category"
             tools:text="Light Brown Jacket" />
 
@@ -99,6 +102,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
+        android:id="@+id/layout_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -125,10 +129,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="18sp"
-            android:shadowColor="?attr/colorOnSurface"
-            android:shadowRadius="12"
-            android:shadowDy="12"
-            android:textColor="?attr/colorSurface"
+            android:shadowColor="@color/black"
+            android:shadowRadius="8"
+            android:textColor="@color/white"
             android:fontFamily="@font/fellix_bold_700"
             android:text="@string/product_details" />
     </FrameLayout>
