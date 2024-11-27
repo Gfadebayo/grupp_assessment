@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_horizontal_screen">20dp</dimen>
+
+    <dimen name="padding_item_product">8dp</dimen>
 </resources>

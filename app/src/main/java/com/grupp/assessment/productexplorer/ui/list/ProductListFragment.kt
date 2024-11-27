@@ -3,6 +3,8 @@ package com.grupp.assessment.productexplorer.ui.list
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -16,6 +18,10 @@ import com.grupp.assessment.productexplorer.ui.base.handleError
 import com.grupp.assessment.productexplorer.ui.base.navigate
 import com.grupp.assessment.productexplorer.ui.base.showLoading
 import com.grupp.assessment.productexplorer.ui.utils.delegates.viewBinding
+import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.BoxDecoration
+import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.BoxDecoration.Companion.setBoxDecoration
+import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.InBetweenDecoration.Companion.setInBetweenDecoration
+import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.getItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOn
@@ -69,6 +75,27 @@ class ProductListFragment: Fragment(R.layout.fragment_product_list) {
                         args = bundleOf("id" to it.id),
                     )
                 }
+            }
+
+            val horizontal = resources.getDimension(R.dimen.padding_horizontal_screen).toInt()
+            recyclerView.setBoxDecoration(
+                start = horizontal,
+                end = horizontal
+            )
+
+            recyclerView.setInBetweenDecoration(padding = 8)
+
+            ViewCompat.setOnApplyWindowInsetsListener(recyclerView) { v, w ->
+                val inset = w.getInsets(WindowInsetsCompat.Type.systemBars())
+
+                recyclerView.getItemDecoration<BoxDecoration>()?.also {
+                    it.paddingTop = inset.top
+                    it.paddingBottom = inset.bottom
+
+                    recyclerView.invalidateItemDecorations()
+                }
+
+                w
             }
         }
     }

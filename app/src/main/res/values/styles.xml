@@ -24,7 +24,7 @@
     </style>
 
     <style name="TextAppearance.Default" parent="">
-        <item name="android:textColor">#ff181c32</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:fontFamily">@font/fellix_medium_500</item>
         <item name="android:textSize">14sp</item>
         <item name="lineHeight">16sp</item>
@@ -40,13 +40,19 @@
 
     <style name="TextAppearance.Detail.TotalPrice" parent="TextAppearance.Default" />
 
+    <style name="TextAppearance.Rating" parent="TextAppearance.Default">
+        <item name="android:textColor">#B3181C32</item>
+    </style>
+
     <style name="TextView.Rating" parent="Button.Nothing">
         <item name="icon">@drawable/ic_star</item>
         <item name="iconTint">#F29914</item>
         <item name="iconSize">24dp</item>
-        <item name="iconPadding">8dp</item>
+        <item name="iconPadding">2dp</item>
+        <item name="enabled">false</item>
+        <item name="android:enabled">false</item>
+        <item name="android:textAppearance">@style/TextAppearance.Rating</item>
         <item name="backgroundTint">@android:color/transparent</item>
-        <item name="startIconDrawable">@drawable/ic_star</item>
     </style>
 
     <style name="TextAppearance.Detail.Title" parent="TextAppearance.List.Title" >

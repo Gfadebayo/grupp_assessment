@@ -1,6 +1,7 @@
 package com.grupp.assessment.productexplorer.ui.list.mapper
 
 import com.grupp.assessment.productexplorer.domain.Product
+import com.grupp.assessment.productexplorer.ui.utils.formatAsAmount
 
 data class ListUi(
     val id: String,
@@ -10,16 +11,16 @@ data class ListUi(
     val rating: String
 )
 
-fun com.grupp.assessment.productexplorer.domain.Product.toListUi(): ListUi {
+fun Product.toListUi(): ListUi {
     return ListUi(
         id = id,
         image = imageUrl,
         title = title,
-        price = price,
+        price = price.formatAsAmount(),
         rating = rating?.let { "${it.rate} (${it.count})" } ?: ""
     )
 }
 
-fun List<com.grupp.assessment.productexplorer.domain.Product>.toListUiList(): List<ListUi> {
+fun List<Product>.toListUiList(): List<ListUi> {
     return map { it.toListUi() }
 }
