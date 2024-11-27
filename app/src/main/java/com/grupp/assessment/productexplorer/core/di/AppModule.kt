@@ -1,19 +1,11 @@
 package com.grupp.assessment.productexplorer.core.di
 
 import android.content.Context
-import com.chuckerteam.chucker.api.ChuckerCollector
-import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.grupp.assessment.productexplorer.data.network.ProductService
-import com.grupp.assessment.productexplorer.data.network.HeaderInterceptor
-import com.grupp.assessment.productexplorer.BuildConfig
 import com.grupp.assessment.productexplorer.data.ProductRepository
 import com.grupp.assessment.productexplorer.data.io.db.ExplorerDatabase
 import com.grupp.assessment.productexplorer.data.io.db.LocalDataSource
 import com.grupp.assessment.productexplorer.data.network.NetworkManager
-import com.grupp.assessment.productexplorer.data.network.NullConverter
 import com.grupp.assessment.productexplorer.data.network.RemoteDataSource
-import com.grupp.assessment.productexplorer.data.network.ResultAdapterFactory
-import com.grupp.assessment.productexplorer.data.network.UnwrapConverter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

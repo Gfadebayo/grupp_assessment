@@ -7,5 +7,5 @@ import retrofit2.http.GET
 interface ProductService {
 
     @GET("products?sort=desc")
-    suspend fun productList(): Result<List<com.grupp.assessment.productexplorer.domain.Product>>
+    suspend fun productList(): Result<List<Product>>
 }

@@ -7,6 +7,7 @@ import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
 import com.grupp.assessment.productexplorer.core.Result
+import okio.Timeout
 import retrofit2.Response
 import retrofit2.Retrofit
 import java.lang.Exception
@@ -17,7 +18,6 @@ import java.net.SocketException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
-import org.json.JSONException
 import timber.log.Timber
 
 class ResultAdapterFactory : CallAdapter.Factory() {
@@ -49,7 +49,6 @@ private class ResultCall<T>(proxy: Call<T>) : CallDelegate<T, Result<T>>(proxy) 
                 val body = response.body()
 
                 if(body == null) Result.UnknownError
-                else if(body is Envelope<*>) body.getResult() as Result<T>
                 else Result.Success(body)
             }
             else if(response.code() == 401) Result.UnauthenticatedError
@@ -80,46 +79,11 @@ private class ResultCall<T>(proxy: Call<T>) : CallDelegate<T, Result<T>>(proxy) 
             Timber.d(t)
             callback.onResponse(this@ResultCall, Response.success(t.toError))
         }
-
-        private fun <T> Envelope<T>.getResult(): Result<T> {
-            val isSuccessful = requestSuccessful ?: false
-            val statusCode = requestCode ?: -1
-            val status = requestStatus ?: ""
-            val message = responseMessage ?: ""
-
-            var isCorrectResponseCode = true
-            var isCorrectResponseMessage = true
-            var body = json
-
-            try {
-                val jsonObject = JSONObject(json).getJSONObject("responseBody")
-
-                body = jsonObject.toString()
-
-                val responseCode = jsonObject.optString("responseCode", "")
-
-                isCorrectResponseCode = responseCode.isEmpty() || responseCode == "00"
-
-                val responseMessage = jsonObject.optString("responseMessage", "").lowercase()
-
-                isCorrectResponseMessage = responseMessage.isEmpty() || responseMessage == "approved"
-            }
-            catch(e: JSONException) {
-                Timber.d(e)
-            }
-
-            return if (this.responseBody != null) {
-                if (isSuccessful && isCorrectResponseCode && isCorrectResponseMessage) Result.Success(responseBody, status = status, message = message)
-                else Result.ApiError(message, responseMessage ?: message)
-            }
-            else Result.EmptyError(message)
-        }
-
     })
 
     override fun cloneImpl() = ResultCall(proxy.clone())
 
-    override fun timeout() = proxy.timeout()
+    override fun timeout(): Timeout = proxy.timeout()
 }
 
 abstract class CallDelegate<TIn, TOut>(
