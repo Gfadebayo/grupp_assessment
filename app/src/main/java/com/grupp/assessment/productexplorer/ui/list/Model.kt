@@ -1,9 +1,15 @@
-package com.grupp.assessment.productexplorer.ui.list.mapper
+package com.grupp.assessment.productexplorer.ui.list
 
+import com.grupp.assessment.productexplorer.core.Result
 import com.grupp.assessment.productexplorer.domain.Product
 import com.grupp.assessment.productexplorer.ui.utils.formatAsAmount
 
-data class ListUi(
+data class ProductListState(
+    val loadState: Result<Unit> = Result.None,
+    val products: List<ProductItem> = emptyList(),
+)
+
+data class ProductItem(
     val id: String,
     val image: String,
     val title: String,
@@ -11,8 +17,8 @@ data class ListUi(
     val rating: String
 )
 
-fun Product.toListUi(): ListUi {
-    return ListUi(
+fun Product.toListUi(): ProductItem {
+    return ProductItem(
         id = id,
         image = imageUrl,
         title = title,
@@ -21,6 +27,6 @@ fun Product.toListUi(): ListUi {
     )
 }
 
-fun List<Product>.toListUiList(): List<ListUi> {
+fun List<Product>.toListUiList(): List<ProductItem> {
     return map { it.toListUi() }
 }

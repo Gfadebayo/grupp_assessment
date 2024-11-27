@@ -7,19 +7,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.transition.Transition
 import com.grupp.assessment.productexplorer.R
 import com.grupp.assessment.productexplorer.databinding.ItemProductBinding
-import com.grupp.assessment.productexplorer.ui.list.mapper.ListUi
 import com.grupp.assessment.productexplorer.ui.utils.ImageViewTarget
-import timber.log.Timber
 
-class ProductListAdapter: ListAdapter<ListUi, ProductListAdapter.ViewHolder>(DIFF_UTIL) {
+class ProductListAdapter: ListAdapter<ProductItem, ProductListAdapter.ViewHolder>(DIFF_UTIL) {
     companion object {
-        val DIFF_UTIL = object: DiffUtil.ItemCallback<ListUi>() {
-            override fun areItemsTheSame(oldItem: ListUi, newItem: ListUi) = oldItem.id == newItem.id
+        val DIFF_UTIL = object: DiffUtil.ItemCallback<ProductItem>() {
+            override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem) = oldItem.id == newItem.id
 
-            override fun areContentsTheSame(oldItem: ListUi, newItem: ListUi) = oldItem == newItem
+            override fun areContentsTheSame(oldItem: ProductItem, newItem: ProductItem) = oldItem == newItem
         }
     }
 

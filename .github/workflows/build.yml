@@ -1,6 +1,10 @@
 name: Build
 on:
   push:
+    paths-ignore:
+      - README.md
+      - screenshot/**
+      - .idea/**
     branches:
       - main
     tags:

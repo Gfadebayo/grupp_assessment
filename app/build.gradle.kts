@@ -36,6 +36,10 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
+
     buildFeatures {
         viewBinding = true
         buildConfig = true
@@ -63,6 +67,7 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    testImplementation(libs.robolectric)
 //    androidTestImplementation(libs.androidx.junit)
 //    androidTestImplementation(libs.androidx.espresso.core)
 

@@ -31,7 +31,7 @@ Constraint Layout is used in designing both screens. As it provides an easy way 
     - Build from source
         - Clone this repository
         - Run "./gradlew :app:assembleRelease" to generate a release apk (the release is signed using the debug signing key for the sake of this assessment)
-        - The generated apk will be availabe in the app/build/outputs/apk/release directory, where it can now be installed
+        - The generated apk will be available in the app/build/outputs/apk/release directory, where it can now be installed
     - Download directly from this repository
 2. Launch the app
 3. Wait for the list of products to be fetched
@@ -40,5 +40,7 @@ Constraint Layout is used in designing both screens. As it provides an easy way 
 
 # Trade-offs
 Things done differently if given more time, 
+- Add a baseline profile for the app. Which will improve it's overall performance
+- Use a code formatting tool like spotless to perform both static analysis as well as formatting. Improving code clarity
 - Find a way to inform the user that the data being viewed is an outdated if internet is not available
 - A dark theme

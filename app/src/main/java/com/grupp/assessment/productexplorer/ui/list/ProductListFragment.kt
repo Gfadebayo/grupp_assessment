@@ -20,8 +20,6 @@ import com.grupp.assessment.productexplorer.databinding.FragmentProductListBindi
 import com.grupp.assessment.productexplorer.ui.base.dismissLoadingDialog
 import com.grupp.assessment.productexplorer.ui.base.handleError
 import com.grupp.assessment.productexplorer.ui.base.navigate
-import com.grupp.assessment.productexplorer.ui.base.showLoading
-import com.grupp.assessment.productexplorer.ui.list.mapper.ListUi
 import com.grupp.assessment.productexplorer.ui.utils.delegates.viewBinding
 import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.BoxDecoration
 import com.grupp.assessment.productexplorer.ui.utils.itemdecoration.BoxDecoration.Companion.setBoxDecoration
