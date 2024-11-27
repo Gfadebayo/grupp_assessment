@@ -10,6 +10,7 @@ import kotlinx.coroutines.test.runTest
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.junit.runner.RunWith
+import com.grupp.assessment.productexplorer.data.BuildConfig
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.RuntimeEnvironment
 import retrofit2.Retrofit
