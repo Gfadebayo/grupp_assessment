@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Button.Nothing" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">start</item>
+        <item name="iconTintMode">src_atop</item>
+        <item name="iconTint">@color/black</item>
+        <item name="android:textAppearance">@style/TextAppearance.Default</item>
+        <item name="android:textColor">@null</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Product" parent="">
+        <item name="cornerSize">10%</item>
+    </style>
+
+    <style name="TextAppearance.Default" parent="">
+        <item name="android:textColor">#ff181c32</item>
+        <item name="android:fontFamily">@font/fellix_medium_500</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">16sp</item>
+    </style>
+
+    <style name="TextAppearance.List.Title" parent="TextAppearance.Default">
+<!--        <item name="android:fontFamily"></item>-->
+    </style>
+
+    <style name="TextAppearance.List.Price" parent="TextAppearance.Default">
+        <item name="android:fontFamily">@font/fellix_semi_bold_600</item>
+    </style>
+
+    <style name="TextAppearance.Detail.TotalPrice" parent="TextAppearance.Default" />
+
+    <style name="TextView.Rating" parent="Button.Nothing">
+        <item name="icon">@drawable/ic_star</item>
+        <item name="iconTint">#F29914</item>
+        <item name="iconSize">24dp</item>
+        <item name="iconPadding">8dp</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="startIconDrawable">@drawable/ic_star</item>
+    </style>
+
+    <style name="TextAppearance.Detail.Title" parent="TextAppearance.List.Title" >
+        <item name="android:fontFamily">@font/fellix_semi_bold_600</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Detail.Description" parent="TextAppearance.Default" >
+        <item name="lineHeight">18sp</item>
+        <item name="android:letterSpacing">0.03</item>
+    </style>
+
+    <style name="TextAppearance.Detail.Price" parent="TextAppearance.Default" >
+        <item name="android:fontFamily">@font/fellix_bold_700</item>
+        <item name="android:textSize">20sp</item>
+        <item name="lineHeight">22sp</item>
+    </style>
+
+</resources>

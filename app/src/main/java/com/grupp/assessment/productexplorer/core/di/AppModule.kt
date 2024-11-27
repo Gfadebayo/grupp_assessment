@@ -3,11 +3,10 @@ package com.grupp.assessment.productexplorer.core.di
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
-import com.grupp.assessment.productexplorer.data.io.SharedPreferenceManager
 import com.grupp.assessment.productexplorer.data.network.ProductService
 import com.grupp.assessment.productexplorer.data.network.HeaderInterceptor
 import com.grupp.assessment.productexplorer.BuildConfig
-import com.grupp.assessment.productexplorer.core.Constants
+import com.grupp.assessment.productexplorer.data.ProductRepository
 import com.grupp.assessment.productexplorer.data.io.db.ExplorerDatabase
 import com.grupp.assessment.productexplorer.data.io.db.LocalDataSource
 import com.grupp.assessment.productexplorer.data.network.NetworkManager
@@ -20,11 +19,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -33,28 +27,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(
-        @ApplicationContext context: Context,
-        prefManager: SharedPreferenceManager
-    ): OkHttpClient = OkHttpClient.Builder().run {
-        connectTimeout(Constants.CONNECT_TIMEOUT, TimeUnit.SECONDS)
-        writeTimeout(Constants.WRITE_TIMEOUT, TimeUnit.SECONDS)
-        readTimeout(Constants.READ_TIMEOUT, TimeUnit.SECONDS)
-
-        if (BuildConfig.DEBUG) {
-            addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
-            })
-
-            addInterceptor(ChuckerInterceptor.Builder(context)
-                    .collector(ChuckerCollector(context))
-                    .maxContentLength(250000L)
-                    .redactHeaders(emptySet())
-                    .alwaysReadResponseBody(false)
-                    .build())
-        }
-
-        build()
+    fun provideNetworkManager(@ApplicationContext context: Context): NetworkManager {
+        return NetworkManager(context)
     }
 
     @Provides
@@ -67,19 +41,20 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRemoteDataSource(
-        client: OkHttpClient,
         networkManager: NetworkManager
     ): RemoteDataSource {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(client)
-            .addCallAdapterFactory(ResultAdapterFactory())
-            .addConverterFactory(NullConverter())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return RemoteDataSource.build(networkManager)
+    }
 
-        val service = retrofit.create(ProductService::class.java)
-
-        return RemoteDataSource(service, networkManager)
+    @Provides
+    @Singleton
+    fun provideProductRepo(
+        localSource: LocalDataSource,
+        remoteSource: RemoteDataSource
+    ): ProductRepository {
+        return ProductRepository(
+            localSource = localSource,
+            remoteSource = remoteSource
+        )
     }
 }

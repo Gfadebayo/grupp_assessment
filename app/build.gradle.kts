@@ -20,8 +20,6 @@ android {
         versionName = "1.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "BASE_URL", "\"https://fakestoreapi.com/\"")
     }
 
     buildTypes {
@@ -35,6 +33,7 @@ android {
     }
 
     buildFeatures {
+        viewBinding = true
         buildConfig = true
     }
 
@@ -48,37 +47,32 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
 }
 
 dependencies {
     coreLibraryDesugaring(libs.desugar.nio)
 
+    implementation(project(":core"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
+
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation(libs.robolectric)
 //    androidTestImplementation(libs.androidx.junit)
 //    androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.gson)
 
     implementation(libs.bundles.androidx)
     implementation(libs.bundles.navigation)
 
     implementation(libs.bundles.glide)
 
-    kapt("com.squareup.retrofit2:response-type-keeper:2.11.0")
-
     implementation(libs.timber)
 
     debugImplementation(libs.chucker.debug)
     releaseImplementation(libs.chucker.release)
-
-    implementation(libs.bundles.network)
 
     implementation(libs.hilt)
     ksp(libs.hilt.compiler)
@@ -88,9 +82,4 @@ dependencies {
 
     implementation(libs.bundles.glide)
     ksp(libs.glide.compiler)
-
-    implementation(libs.room.runtime)
-    ksp(libs.room.compiler)
-    implementation(libs.room.ktx)
-    testImplementation(libs.room.test)
 }

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Product Explorer</string>
+    <string name="retry">Retry</string>
+    <string name="close">Close</string>
+    <string name="error_network_title">No internet connection detected</string>
+    <string name="error_network_message">Check your internet connection and try again.</string>
+    <string name="error_timeout_title">Operation timed out</string>
+    <string name="error_timeout_message">The operation timed out, check your internet connection and try again.</string>
+    <string name="error_unknown_title">Operation failed</string>
+    <string name="error_unknown_message">The operation failed with an unknown error.</string>
+    <string name="fetching_products">Fetching products</string>
+    <string name="product_detail">Product Detail</string>
+    <string name="jewellery">Jewellery</string>
+    <string name="mens_clothing">Men\'s Clothing</string>
+    <string name="total_price">Total price</string>
+    <string name="womens_clothing">Women\'s Clothing</string>
+    <string name="electronics">Electronics</string>
 </resources>
