@@ -3,15 +3,18 @@ This is the solution to the grupp assessment test. A "Product Explorer" app feat
 ## Responsiveness
 Constraint Layout is used in designing both screens. As it provides an easy way to design components without specifying their actual size thereby adapting to the screen dimension of the device running the app. 
 # Screenshots
-| ListScreen | DetailScreen |
-|:----------:|:----------:
-![ListScreen](screenshot/list.png) | ![DetailScreen](screenshot/detail.png)
-
 
 | SplashScreen |  |
 |:--------------:|:-------:
 ![SplashScreen](screenshot/splash.png) | 
 
+| ListScreen |  |
+|:--------------:|:-------:
+![ListScreen](screenshot/list.png) |
+
+| DetailScreen |  |
+|:--------------:|:-------:
+![SplashScreen](screenshot/detail.png) |
 
 # Libraries Used
 - Gson
