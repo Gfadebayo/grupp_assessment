@@ -4,6 +4,7 @@ import android.content.Context
 import com.grupp.assessment.productexplorer.R
 import com.grupp.assessment.productexplorer.domain.Category
 import com.grupp.assessment.productexplorer.domain.Product
+import com.grupp.assessment.productexplorer.ui.utils.formatAsAmount
 
 data class ProductDetailModel(
     val imageUrl: String,
@@ -14,13 +15,13 @@ data class ProductDetailModel(
     val title: String
 )
 
-fun com.grupp.assessment.productexplorer.domain.Product.toDetailModel(): ProductDetailModel {
+fun Product.toDetailModel(): ProductDetailModel {
     return ProductDetailModel(
         imageUrl = imageUrl,
         category = category,
         rating = rating?.let { "${it.rate} (${it.count})" } ?: "",
         description = description,
-        price = price,
+        price = price.formatAsAmount(),
         title = title
     )
 }

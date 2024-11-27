@@ -58,6 +58,7 @@
     <style name="TextAppearance.Detail.Title" parent="TextAppearance.List.Title" >
         <item name="android:fontFamily">@font/fellix_semi_bold_600</item>
         <item name="android:textSize">18sp</item>
+        <item name="lineHeight">22sp</item>
     </style>
 
     <style name="TextAppearance.Detail.Description" parent="TextAppearance.Default" >
