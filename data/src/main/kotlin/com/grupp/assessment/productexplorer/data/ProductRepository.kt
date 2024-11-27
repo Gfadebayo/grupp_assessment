@@ -17,7 +17,7 @@ class ProductRepository(
      * Callers of this method are expected to also call [allProducts] in order to
      * observe changes made to the database in real time including getting the updated list of products
      */
-    suspend fun fetchProduct(page: Int): Result<Unit> {
+    suspend fun fetchProduct(): Result<Unit> {
         val result = remoteSource.getProducts()
 
         if(result is Result.Success) {

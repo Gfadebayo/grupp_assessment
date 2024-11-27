@@ -10,8 +10,14 @@ import androidx.room.TypeConverters
 @TypeConverters(ProductConverter::class)
 abstract class ExplorerDatabase: RoomDatabase() {
     companion object {
-        fun build(context: Context): ExplorerDatabase {
-            return Room.databaseBuilder(
+        fun build(context: Context, inMemory: Boolean = false): ExplorerDatabase {
+            return if(inMemory) {
+                Room.inMemoryDatabaseBuilder(
+                    context = context,
+                    klass = ExplorerDatabase::class.java
+                ).build()
+            }
+            else Room.databaseBuilder(
                 context = context,
                 klass = ExplorerDatabase::class.java,
                 name = "product-explorer.db"
